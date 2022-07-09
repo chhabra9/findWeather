@@ -1,5 +1,6 @@
 const express=require("express")
 const http=require("http");
+const fetch=require("fetch")
 const bodyParser=require("body-parser");
 const app=express();
 app.use(bodyParser.urlencoded({extended:true}));
@@ -7,7 +8,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.get("/",function(req,res){
     res.sendFile(__dirname+"/index.html");
 })
-app.post("/",function(req,res){
+app.post("/",async function(req,res){
     var city=req.body.cityName;
     var url="http://api.openweathermap.org/data/2.5/weather?q="+city+"&units=metric&appid=6ed7f65cf21cfe0f7cf28656f5de17ff";
     http.get(url,function(response){
@@ -23,8 +24,9 @@ app.post("/",function(req,res){
                 res.send();
         })
     })
+
 })
-app.listen(3000,function(){
+app.listen(4000,function(){
     console.log("server is running on port 3000");
 
 })
